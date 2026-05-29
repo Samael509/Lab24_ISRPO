@@ -148,3 +148,99 @@ function main() {
 }
 
 main();
+
+console.log("промисы");
+const simplePromise = new Promise((resolve,reject) => {
+  const success = true;
+  if (success) {
+    resolve("операция выполнена успешно!");
+  } else {
+    reject("произошла ошибка!");
+  }
+});
+simplePromise
+  .then((result) => console.log("результат:", result))
+  .catch((error) => console.log("ошибка:", error));
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`прошло ${ms} миллисекунд`);
+    }, ms);
+  });
+}
+
+delay(1000).then((message) => console.log(message));
+
+function fetchUserData(userId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (userId > 0) {
+        resolve({
+          id: userId,
+          name: "иван иванов",
+          email: "ivan@example.com",
+        });
+      } else {
+        reject("неверный ID пользователя");
+      }
+    }, 1500);
+  });
+}
+
+fetchUserData(1)
+  .then((user) => console.log("пользователь:", user))
+  .catch((error) => console.log("ошибка:", error));
+
+  // функция для шага, возвращает промис, который резолвится через 500 мс с сообщением
+function step1() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("шаг-1 завершён"), 500);
+  });
+}
+
+// функция для шага, принимает результат предыдущего шага, возвращает промис
+function step2(previousResult) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(`${previousResult} - шаг-2 завершён`), 500);
+  });
+}
+
+// функция для шага, принимает результат предыдущего шага, возвращает промис
+function step3(previousResult) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(`${previousResult} - шаг-3 завершён`), 500);
+  });
+}
+
+// вызов шага, цепочка промисов с обработкой результата каждого шага
+step1()
+  .then((result1) => step2(result1))
+ // После step2 вызывается step3 с результатом
+  .then((result2) => step3(result2))
+  .then((finalResult) => console.log("финальный результат:", finalResult))
+  .catch((error) => console.log("ошибка в цепочке:", error)); 
+
+function checkInventory(product) {
+  return new Promise((resolve, reject) => {
+    const inventory = {
+      "товар1": true,
+      "товар2": false,
+      "товар3": true,
+    };
+
+    if (inventory.hasOwnProperty(product)) {
+      if (inventory[product]) {
+        resolve(`Товар "${product}" есть в наличии`);
+      } else {
+        reject(`Товара "${product}" нет в наличии`);
+      }
+    } else {
+      reject(`Товар "${product}" не найден в базе`);
+    }
+  });
+}
+
+checkInventory("товар1")
+  .then((message) => console.log(message))
+  .catch((error) => console.log(error));
