@@ -75,3 +75,65 @@ function printProduct({ name, price, category, inStock }) {
 }
 
 printProduct(product);
+
+console.log("Spread для массивов");
+
+// исходные массивы
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+
+// объединение массивов с помощью spread-оператора
+const combined = [...arr1, ...arr2];
+console.log("объединённый массив:", combined);
+
+// создание копии массива
+const copy = [...arr1];
+consosle.log("Копия массива:", copy);
+
+// расширение массива с добавлением элементов
+const extended = [0, ...arr1, 7, 8];
+console.log("Расширенный массив:", extended);
+
+console.log("Spread для объектов");
+
+const person = {
+    name: "Иван",
+    age: 30,
+};
+
+const address = {
+    city: "Санкт-Петербург",
+    street: "Невский проспект",
+};
+
+// объединение с помощью spread-оператора
+const fullInfo = { ...person, ...address};
+console.log("полная информация:", fullInfo);
+
+// создание опии объекта person
+const personCopy = { ...person};
+console.log("копия объекта:", personCopy);
+
+// создание нового объекта с изменениями
+const updated = { ...person, age: 31, occupation: "Developer"};
+console.log("обновлённый объект:", updated);
+
+console.log("Rest оператор");
+
+function sum(...numbers) {
+  // возвращаем сумму всех чисел с помощью метода reduce
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+// вызываем функцию с разным количеством аргументов
+console.log("сумма 1,2,3:", sum(1, 2, 3));
+console.log("сумма 1,2,3,4,5:", sum(1, 2, 3, 4, 5));
+
+// создаем массив чисел
+const numbers = [10, 20, 30, 40, 50];
+// остальные элементы собираем в массив rest
+const [first, second, ...rest] = numbers;
+// выводим полученные значения
+console.log("первое число:", first);
+console.log("второе число:", second);
+console.log("остальные числа:", rest);
