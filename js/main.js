@@ -137,3 +137,14 @@ const [first, second, ...rest] = numbers;
 console.log("первое число:", first);
 console.log("второе число:", second);
 console.log("остальные числа:", rest);
+
+import { E, square, cube } from './is/math.js';
+
+function main() {
+  // импорт math.js
+  console.log('E =', E);
+  console.log('square(5) =', square(5));
+  console.log('cube(3) =', cube(3));
+}
+
+main();
